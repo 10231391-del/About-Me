@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<!-- This code was provided as starter code by my teacher. -->
+<html lang="en">
+	
+<head>
+	<!--The head section contains general information about the webpage.-->
+	<title>About Me</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+	<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+	<style>
+		/*The style section controls how pieces of your webpage look.*/
+		li {
+			margin-left: 30px;
+			font-size: 20px;
+			color: rgb(255, 255, 255);
+		}
+		i {
+			color: rgb(0, 0, 0);
+		}
+		header {
+			background-color: black;
+			padding: 30px;
+			text-align: center;
+			font-size: 35px;
+			color: rgb(192, 189, 189);
+		}
+		#left {
+			float: left;
+			background-color: rgb(204, 187, 130);
+			padding: 30px;
+			width: 400px;
+		}
+		#left p{
+			color: rgba(255, 255, 255, 0.788);
+		}
+		#right {
+			float: center;
+			background-color: rgb(160, 159, 108);
+			padding: 30px;
+			margin-left: 460px;
+		}
+		.wouldYouRather p {
+			font-size: 18px;
+		}
+		.wouldYouRather {
+			background: rgba(255, 255, 252, 0.63);
+			padding: 30px;
+		}
+		.gameDisplay {
+			background: rgb(47, 67, 180);
+			padding: 10px;
+			text-align: center;
+		}
+		footer {
+			background-color: rgb(20, 19, 19);
+			padding: 10px;
+			text-align: right;
+			color: rgb(236, 236, 236);
+			clear: both;
+		}
+	</style>
+</head>
+
+<body>
+	<!--The body section contains the content of your webpage.-->
+	<header>
+		<h2>About Ahmet</h2>
+	</header>
+
+	<div id="left">
+		<h2>My Favorite Things</h2>
+		<p><i>Favorite weird color: </i> Green </p>
+		<p><i>Favorite animal that doesn't have teeth: </i> jellyfish </p>
+		<p><i>Favorite yellow food: </i> banana </p>
+		<p><i>Favorite 6-digit number: </i> 123456 </p>
+        <p><i>Favorite number: </i> 8 </p>
+        
+
+		<br>
+		<h2>My Computer Science Experience</h2>
+		<p><i>Years of experience: </i> 1 </p>
+		<p><i>My CS teachers: </i> Rozelle </p>
+		<p><i>Biggest project: </i> none </p>
+		<p><i>Coding languages: </i> python </p>
+		<br>
+		<h2>My Life Goals</h2>
+		<p><i>My life's purpose: </i> basketball player </p>
+		<p><i>How I know when I have achieved my purpose: </i> when im living the life that i want</p>
+		<p><i>My next step after high school graduation: </i> College </p>
+		<p><i>Career(s) I am interested in: </i> basketball </p>
+		<br>
+		<h2>Fun Facts</h2>
+		<p><i>Something I want to get better at: </i> academics </p>
+		<p><i>What I do in my free time: </i> Basketball </p>
+		<p><i>Chore I wish a robot could do for me: </i> cleaning the house</p>
+		<p><i>Pet(s) I want to have as an adult: </i> cat, dog </p>
+	</div>
+
+	<div id="right">
+		<h2>Accomplishments</h2>
+		<li>good grades</li>
+		<li>good guy</li>
+		<li>helps his family</li>
+		
+		<br>
+		<div class="wouldYouRather" x-data="game">
+			<h2>Would You Rather</h2>
+			<p>Play a game with me! Would you rather...</p>
+			<div class="gameDisplay" x-show="showGame">
+				<span x-text="prompt"></span>
+				<div class="buttons" >
+					<button
+						x-text="button1Text"
+						@click="choiceMade(1)"
+						:style="button1Color ? 'background-color: lightblue; color: black;' : ''"
+						:disabled="disableButtons"></button>
+					<button
+						x-text="button2Text"
+						@click="choiceMade(2)"
+						:style="button2Color ? 'background-color: lightblue; color: black;' : ''"
+						:disabled="disableButtons"></button>
+				</div>
+				<br>
+				<strong><span x-text="resultText" :style="`color: ${resultColor}; `"></span></strong>
+				<br>
+			</div>
+			<br>
+			<button x-text="playButtonText" @click="play()"></button>
+		</div>
+	</div>
+	
+	<footer>
+		<p>© 2026-2027<br>
+		AP Computer Science Principles<br>
+		George Washington High School</p>
+	</footer>
+	
+	<script>
+		//The script section contains the JavaScript logic
+		document.addEventListener('alpine:init', () => {
+			Alpine.data('game', () => ({
+				// Prompts borrowed from TeenVogue: https://www.teenvogue.com/story/how-you-answer-these-171-would-you-rather-questions-says-a-lot-about-you 
+				promptList: [
+					"have been the oldest or have been the youngest child in your family?",
+					"have a photographic memory or have the ability to read minds?",
+					"have breakfast for dinner or have dinner for breakfast?",
+					"live solo on an uninhabited island or live in a city apartment with six roomies and one bathroom?",
+					"sing well and dance poorly or sing poorly and dance well?",
+					"live in a ritzy hotel or live in a cabin in the woods?",
+					"have to move to a new city every year or only be able to live in your current city for the rest of your life?",
+					"lose access to your memories from before age 18 or lose the ability to form long-term memories going forward?",
+					"have a pool in your backyard or live next to the ocean?",
+					"be the smartest or be the funniest person in the room?",
+                    "lose all your memories in the past or not be able to make new ones"
+				],
+				answerList: [
+					//Leave as 1 for first choice or change to 2 for second choice
+					2,
+					2,
+					1,
+					2,
+					1,
+					1,
+					1,
+					1,
+					2,
+					1,
+                    2
+				],
+				randomIndex: 0,
+				prompt: "",
+				playButtonText: "Play!",
+				showGame: false,
+				button1Color: false,
+				button2Color: false,
+				disableButtons: false,
+				button1Text: "",
+				button2Text: "",
+				resultText: "",
+				resultColor: "#000000",
+
+				play() {
+					this.showGame = true;
+					this.playButtonText = "Play again!";
+					this.button1Color = false;
+					this.button2Color = false;
+					this.disableButtons = false;
+					this.resultText = "";
+					let lastIndex = this.randomIndex;
+					while(lastIndex == this.randomIndex) {
+						this.randomIndex = Math.floor(Math.random() * this.promptList.length);
+					}
+					this.prompt = this.promptList[this.randomIndex];
+					let choices = this.prompt.split(" or ");
+					this.button1Text = choices[0].toLowerCase();
+					this.button2Text = choices[1].toLowerCase().replace("?", "");
+				},
+				
+				choiceMade(theirChoice) {
+					this.disableButtons = true;
+					let myChoice = this.answerList[this.randomIndex];
+					let choice = -1;
+					if(theirChoice == 1){this.button1Color = true;}
+					else{this.button2Color = true;}
+					if(myChoice == 1) {choice = this.button1Text;}
+					else {choice = this.button2Text;}
+					if(theirChoice == myChoice) {
+						this.resultText = "Agreed! I think " + choice + " is the best option.";
+						this.resultColor = "#017a2e";
+					}
+					else {
+						this.resultText = "Disagree! I think \"" + choice + "\" is definitely the better option.";
+						this.resultColor = "#a62202";
+					}
+				}
+			}));
+		});
+	</script>
+</body>
+</html>
